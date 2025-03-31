@@ -4,6 +4,9 @@ import AuthContext from '../context/AuthContext';
 import axios from 'axios';
 import { FormInput, FormButton } from '../components/form';
 
+// API URL'yi çevre değişkeninden al veya varsayılan olarak localhost kullan
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +31,7 @@ const LoginPage = () => {
     // Check if default admin exists
     const checkDefaultAdmin = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/auth/check-default-admin').catch(() => {
+        const response = await axios.get(`${API_URL}/api/auth/check-default-admin`).catch(() => {
           // If the endpoint doesn't exist, we'll assume default admin exists for now
           // In a real app, you'd want to create this endpoint
           setIsDefaultAdminExists(true);
@@ -60,7 +63,7 @@ const LoginPage = () => {
     
     try {
       console.log('Attempting login...');
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post(`${API_URL}/api/auth/login`, {
         email,
         password
       });

@@ -2,6 +2,9 @@ import { createContext, useState, useEffect } from 'react';
 import api from '../utils/api';
 import axios from 'axios';
 
+// API URL'yi çevre değişkeninden al veya varsayılan olarak localhost kullan
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -37,8 +40,8 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setLoading(true);
-      // Using direct axios call with full URL for login to avoid any proxy issues
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      // Using direct axios call with full URL to avoid any proxy issues
+      const res = await axios.post(`${API_URL}/api/auth/login`, { email, password });
       
       if (res.data.success) {
         localStorage.setItem('token', res.data.token);
@@ -46,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         setError(null);
         
         // If login is with default admin credentials, redirect to register page
-        if (email === 'admin@admin.com' && password === 'admin') {
+        if (res.data.isDefaultAdmin) {
           setLoading(false);
           window.location.href = '/register';
           return true;
@@ -66,8 +69,8 @@ export const AuthProvider = ({ children }) => {
   const register = async (email, password) => {
     try {
       setLoading(true);
-      // Using direct axios call with full URL for register to avoid any proxy issues
-      const res = await axios.post('http://localhost:5000/api/auth/register', { email, password });
+      // Using direct axios call with full URL to avoid any proxy issues
+      const res = await axios.post(`${API_URL}/api/auth/register`, { email, password });
       
       if (res.data.success) {
         localStorage.setItem('token', res.data.token);
