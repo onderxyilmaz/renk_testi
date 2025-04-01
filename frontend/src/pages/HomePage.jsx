@@ -33,8 +33,8 @@ const HomePage = () => {
       </p>
       
       <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-xl font-bold mb-4">Test Nasıl Çalışır?</h2>
-        <ul className="text-left list-disc pl-6 space-y-2">
+        <h2 className="text-xl font-bold mb-4 text-gray-800">Test Nasıl Çalışır?</h2>
+        <ul className="text-left list-disc pl-6 space-y-2 text-gray-800">
           <li>15 adet soru cevaplayacaksınız.</li>
           <li>Her soruda en az 1, en fazla 2 şık seçebilirsiniz.</li>
           <li>İlk seçtiğiniz şık 2 puan, ikinci seçtiğiniz şık 1 puan değerindedir.</li>
